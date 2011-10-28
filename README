@@ -1,0 +1,8 @@
+src/discom2asl --- should work for 4D and mosaic data
+
+src/push2pacs  --- should pass information to pacs 
+
+testing    --- unit tests for above  
+
+data       --- reference data for tests
+

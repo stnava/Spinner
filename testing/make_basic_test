@@ -1,0 +1,8 @@
+cd testing 
+for x in ../src/* ; do 
+  nm=` echo $x | cut -d '/' -f 3 ` 
+  if [ ! -s ${nm}_test ] ; then 
+    cp $x ${nm}_test 
+  fi
+done
+cd ..
