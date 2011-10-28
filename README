@@ -1,3 +1,5 @@
+#******** Layout of current framework ******#
+
 src/discom2asl --- should work for 4D and mosaic data
 
 src/push2pacs  --- should pass information to pacs 
@@ -5,4 +7,14 @@ src/push2pacs  --- should pass information to pacs
 testing    --- unit tests for above  
 
 data       --- reference data for tests
+
+#********* User Experience ********#
+
+should run dicom2asl on dicom directory for asl and get 
+
+subjectID/timepoint/asl/subjectID_timepoint_asl*.nii.gz
+
+should derive some data with a asl2cbf script and post-processing 
+
+should then push2pacs 
 
