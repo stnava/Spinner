@@ -1,0 +1,11 @@
+#!/bin/bash
+# 
+if [ ! -s testing/dicom2scalarimage_test ] ; then 
+  echo please call from root Spinner directory
+  exit
+fi
+TESTS=" ./testing/dicom2scalarimage_test "
+for x in $TESTS ; do 
+ ./$x
+done
+
