@@ -27,14 +27,17 @@ if ( filereadable == -1 ) {
 
 train<-as.matrix(read.csv(training,h=T))
 test<-as.matrix(read.csv(testing,h=T))
+
 nt<-as.numeric(dim(train)[1])
-pvals<-rep(NA,nt)
 for ( y in c(1:dim(test)[1] ) ) 
 {
+  pvals<-rep(NA,nt)
+#  globalp<-(wilcox.test(c(train),test[y,]))$p.value
   for ( x in c(1:nt) )
   {
     pvals[x]<-(wilcox.test(train[x,],test[y,]))$p.value
   }
-  print(paste("Summary for subject: ",y,"---mean:",mean(pvals),"min",min(pvals),"max",max(pvals)))
+  pvals<-p.adjust(pvals)
+  print(paste("Summary for subject: ",y,"---mean:",mean(pvals),"min",min(pvals),"max",max(pvals))) # ," global ",globalp))
 }
 q()
