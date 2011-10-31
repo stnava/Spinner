@@ -1,0 +1,38 @@
+#!/bin/bash
+img=$2
+trainlist=$1
+nsam=$3 
+usage=" training_list.txt  test_image.nii.gz  nsamples "
+if [[ ! -s $img ]] || [[ ${#img} -lt 3  ]] ; then  
+  echo usage:  $0 $usage 
+  echo no input image
+  exit 
+fi 
+if [[ ${#nsam} -lt 3  ]] ; then  
+  echo usage:  $0 $usage 
+  echo set number of samples 
+  exit 
+fi 
+if [[ ! -s $trainlist ]] || [[ ${#trainlist} -lt 3  ]] ; then  
+  echo usage:  $0  $usage 
+  echo no input training set
+  exit 
+fi 
+train=` echo $trainlist | cut -d '.' -f 1 `
+train=${train}.csv 
+test=` echo $img | cut -d '.' -f 1 `
+test=${test}.csv 
+echo $train $test 
+imgs=` cat $trainlist ` 
+if [ ! -s $train ] ; then 
+echo build training set $train 
+ImageMath 3 $train RandomlySampleImageSetToCSV  $nsam $imgs
+else 
+echo training set $train already exists 
+fi
+echo test 
+ImageMath 3 $test RandomlySampleImageSetToCSV  $nsam $img 
+echo compare 
+./src/compare_trainingimages_to_testimages $train  $test
+# cleanup
+rm $test 

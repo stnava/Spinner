@@ -1,0 +1,40 @@
+#!/usr/bin/Rscript
+Args <- commandArgs()
+#
+if ( length(Args) < 7  ){
+fnm<-Args[4]
+fnm<-substring(fnm,8,nchar(as.character(fnm)))
+print(paste("Usage - RScript training.csv testing.csv "))
+print(paste(" .... " ))
+q()
+}
+ARGIND<-6
+training<-c(as.character(Args[ARGIND]))
+ARGIND<-ARGIND+1
+testing<-c(as.character(Args[ARGIND]))
+ARGIND<-ARGIND+1
+
+filereadable<-file.access(training,mode=4)
+if ( filereadable == -1 ) {
+  print(paste(" Cannot find the training set ",training," quitting. "))
+  q()
+} 
+filereadable<-file.access(testing,mode=4)
+if ( filereadable == -1 ) {
+  print(paste(" Cannot find the testing set ",testing," quitting. "))
+  q()
+} 
+
+train<-as.matrix(read.csv(training,h=T))
+test<-as.matrix(read.csv(testing,h=T))
+nt<-as.numeric(dim(train)[1])
+pvals<-rep(NA,nt)
+for ( y in c(1:dim(test)[1] ) ) 
+{
+  for ( x in c(1:nt) )
+  {
+    pvals[x]<-(wilcox.test(train[x,],test[y,]))$p.value
+  }
+  print(paste("Summary for subject: ",y,"---mean:",mean(pvals),"min",min(pvals),"max",max(pvals)))
+}
+q()
