@@ -25,19 +25,28 @@ if ( filereadable == -1 ) {
   q()
 } 
 
-train<-as.matrix(read.csv(training,h=T))
-test<-as.matrix(read.csv(testing,h=T))
+# train<-t(scale(t(as.matrix(read.csv(training,h=T)))))
+# test<-t(scale(t(as.matrix(read.csv(testing,h=T)))))
+# train<-scale(as.matrix(read.csv(training,h=T)))
+train<-(as.matrix(read.csv(training,h=T)))
+test<-(as.matrix(read.csv(testing,h=T)))
 
 nt<-as.numeric(dim(train)[1])
 for ( y in c(1:dim(test)[1] ) ) 
 {
-  pvals<-rep(NA,nt)
-#  globalp<-(wilcox.test(c(train),test[y,]))$p.value
+  wpvals<-rep(NA,nt)
+  kpvals<-rep(NA,nt)
+#  globalp<-(ks.test(c(train),test[y,]))$p.value
   for ( x in c(1:nt) )
   {
-    pvals[x]<-(wilcox.test(train[x,],test[y,]))$p.value
+    kpvals[x]<-(ks.test(train[x,],test[y,]))$p.value
+    wpvals[x]<-(wilcox.test(train[x,],test[y,]))$p.value
   }
-  pvals<-p.adjust(pvals)
-  print(paste("Summary for subject: ",y,"---mean:",mean(pvals),"min",min(pvals),"max",max(pvals))) # ," global ",globalp))
+  kqvals<-p.adjust(kpvals)
+  wqvals<-p.adjust(wpvals)
+  print(paste("KS-Summary for subject: ",y,"---mean:",mean(kqvals),"min",min(kqvals),"max",max(kqvals))) # ," global ",globalp))
+  print(paste("Wilcox-Summary for subject: ",y,"---mean:",mean(wqvals),"min",min(wqvals),"max",max(wqvals))) # ," global ",globalp))
 }
+# print(warnings())
+
 q()
