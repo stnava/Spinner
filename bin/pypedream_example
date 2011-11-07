@@ -1,0 +1,76 @@
+#! /usr/bin/env python
+#################
+# download the 32bit epd python install from www.enthought.com/products/epd.php
+
+# start with 
+# ipython notebook --pylab=inline
+
+from time import localtime 
+# record how long this takes
+print localtime()
+import numpy as np
+import scipy.ndimage as ndimage
+import nibabel as nib
+import matplotlib as mpl
+from scipy import *
+ion()
+
+# read images into a matrix 
+N=3
+path_to_images='/Users/stnava/code/ipython/'
+img1 = nib.load(path_to_images+'img1.nii.gz')
+image_set = np.zeros(np.hstack((img1.shape, N))) 
+for i in range(N):
+    nm=path_to_images+'img%d.nii.gz' % (i+1)
+    # we know it's 2D
+    image_set[:,:,i]=nib.load(nm).get_data()
+    print(nm)
+
+# get the mask , also 2D , same space as images
+mask = nib.load(path_to_images+'mask.nii.gz').get_data()>0
+
+# index the image_set by the mask 
+X = image_set[mask].T 
+print image_set.shape 
+print mask.shape
+print X.shape
+
+# use numpy to do some matrix work 
+np.random.seed(0)
+# dot product of matrix and vector 
+v_new = np.dot(np.random.rand(1,3),X)
+
+new_image = np.zeros(img1.shape)
+new_image[np.where(mask)] = v_new.ravel()
+
+# smooth the image with scipy 
+smooth_image = ndimage.gaussian_filter(new_image, 1)
+imshow(smooth_image[:,:]>220)
+
+label_array, nlabels = ndimage.label(smooth_image>220) 
+print nlabels
+
+counts = histogram(label_array.ravel(), range(nlabels+1))
+idx = np.argsort(counts[0][1:])+1
+print idx
+final_img = nan*np.zeros(label_array.shape)
+for i in idx[-3:]:
+    final_img[label_array==i] = i
+
+clf()
+imshow(img1.get_data()[:,:], cmap = cm.gray)
+imshow(final_img[:,:])
+
+counts
+
+nr = np.ceil(np.sqrt(img1.shape[-1])).astype(int)
+
+count = 0
+for i in range(nr):
+    for j in range(nr):
+        if count<img1.shape[-1]:
+            subplot(nr,nr, count+1)
+            imshow(img1.get_data()[:,:], cmap = cm.gray)
+            imshow(final_img[:,:])
+            count +=1
+

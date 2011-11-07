@@ -1,0 +1,11 @@
+#!/bin/bash
+echo pipedream \
+echo " one may call pipedream like this: "
+echo  pipedream option
+echo -e pipedream options are below   "\n" \
+        configure "\n" \
+        dicom2scalarimage "\n" \
+        is_brain_in_image "\n" \
+        test
+
+

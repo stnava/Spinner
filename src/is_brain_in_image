@@ -35,4 +35,4 @@ ImageMath 3 $test RandomlySampleImageSetToCSV  $nsam $img
 echo compare 
 ./src/compare_trainingimages_to_testimages $train  $test
 # cleanup
-rm $test 
+# rm $test 

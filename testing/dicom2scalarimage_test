@@ -17,7 +17,7 @@ if [ ! -s sub10 ] ; then
   unzip sub10.zip 
 fi
 cd ..
-./src/dicom2scalarimage.sh ./data/sub10/RP1/rawdata/ 0002_t1_mpr_AX_MPRAGE  ./$TESTOUT/sub10/  sub10_RP1_t1
+./src/dicom2scalarimage ./data/sub10/RP1/rawdata/ 0002_t1_mpr_AX_MPRAGE  ./$TESTOUT/sub10/  sub10_RP1_t1
 if [ ! -s $TESTOUT/sub10/sub10_RP1_t1.nii.gz ] ; then 
   echo $0 FAILURE --- did you set up src/dependencies.sh correctly?
   exit 1 
