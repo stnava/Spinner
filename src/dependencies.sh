@@ -7,13 +7,13 @@
 # Nothing will be changed if the dcm2nii path is correct.
 #
 # PICSL cluster defaults
-DCM2NIIPATH="~/Downloads/mricronmac/"
-ANTSPATH="/Users/ntustison/Pkg/ANTS/bin/"
+DCM2NIIPATH="/Applications/mricronmac/"
+ANTSPATH="~/Pkg/ANTS/bin/"
 JAVAPATH="/usr/bin"
-CAMINOPATH="/Users/ntustison/Pkg/camino/bin/"
+CAMINOPATH="~/Pkg/camino/bin/"
 IMAGEMAGICKPATH="/opt/local/bin/"
-SCCAPATH="/Users/ntustison/Pkg/sccan/bin/"
-GDCMPATH="/home/pcook/grosspeople/research/gdcm/bin"
+SCCAPATH="~/Pkg/sccan/bin/"
+GDCMPATH="~/Pkg/gdcm/bin"
 
 #
 # The qsub commmand that will be invoked by pipedream. Include path information and
