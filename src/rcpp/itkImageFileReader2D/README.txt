@@ -13,6 +13,9 @@ Files: itkImageFileReader2D.cpp
        README.txt
 		-- this file
 Usage: 
+       ITK should built to create SHARED libraries. To do so, compile
+       ITK with 'BUILD_SHARED_LIB' turned ON.      
+
        All the files above are in the directory 'ITKImageFileReader'.
 
        $ pwd
