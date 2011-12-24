@@ -1,4 +1,11 @@
 Testing Rcpp. Entry level programs.
+
+in R, please run 
+
+install.packages('Rcpp')
+
+then compile the following two examples:
+
 ---------------------------------------------------------
 pingpong.cpp -> answers 'pong' for 'ping' and vice versa
 
