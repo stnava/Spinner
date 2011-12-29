@@ -1,0 +1,5 @@
+# function wrapper to read an image file
+itkReadImageFile <- function( filename ){
+	.Call( "itkImageFileReader2D", filename , PACKAGE = "Ritk" )
+}
+

@@ -1,0 +1,12 @@
+Package: Ritk
+Type: Package
+Title: Expose ITK library to R using Rcpp (short line)
+Version: 1.0
+Date: 2011-12-26
+Author: Shrinidhi KL
+Maintainer: Shrinidhi KL <FAKEID@NOWHERE.COM>
+Description: Expose ITK library routines to R through the use of Rcpp package
+License: GPL
+LazyLoad: yes
+Depends: Rcpp (>= 0.9.7.2)
+LinkingTo: Rcpp
